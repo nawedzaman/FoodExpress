@@ -1,6 +1,10 @@
 import logo from "../assests/logo.png";
 import { Link } from "react-router-dom";
 import Search from "./Search";
+import vegIcon from "../assests/veg-icon.png";
+import nonVegIcon from "../assests/non-veg-icon.png";
+import useOnline from "../hooks/useOnline";
+
 const Title = () => {
   return (
     <a href="/">
@@ -10,6 +14,7 @@ const Title = () => {
 };
 
 const Header = () => {
+  const isOnline = useOnline();
   return (
     <div className="header">
       <Title />
@@ -27,6 +32,15 @@ const Header = () => {
           </li>
           <li>
             <Link to="/cart">Cart</Link>
+          </li>
+          <li>
+            <Link to="/instamart">Instamart</Link>
+          </li>
+          <li>
+            <div className="item-veg">
+            {isOnline ?
+              "🟢":"🔴" }
+            </div>
           </li>
         </ul>
       </div>

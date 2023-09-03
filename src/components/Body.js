@@ -1,37 +1,33 @@
-// TODO: Initialize git
 // TODO: Implement search bar in header.
 // TODO: Fix css in responsive view
 // TODO: Implement sticky header which changes to search bar on scroll(eg.Swiggy)
-// TODO: Implement restaurant name in menu 
+// TODO: Fix  restaurant details in restaurant menu
+// TODO: make footer stick to bottom
+// TODO:  make header responsive
 import React, { useState, useEffect } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Carousel from "./Carousel";
 import Search from "./Search";
+import { swiggy_api_URL } from "../constants";
+import useResData from "../hooks/useResData";
+import { filterData } from "../utils/helper";
 const Body = () => {
-  const [responseData, setResponseData] = useState(null);
+  
   const [searchText, setSearchText] = useState("");
-  const [originalData, setOriginalData] = useState(null);
+  const [allRestaurants] = useResData(swiggy_api_URL);
   const [showCancelIcon, setShowCancelIcon] = useState(false);
-
-  const filterData = (searchText, responseData) => {
-    const filterData = responseData.filter((item) => {
-      console.log(item)
-      const restaurantName = item?.info?.name.toLowerCase();
-      return restaurantName.includes(searchText.toLowerCase());
-    });
-
-    return filterData;
-  };
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+ 
   const handleSearch = (text) => {
     setSearchText(text);
     if (text !== "") {
-      const filteredData = filterData(text, originalData);
-      setResponseData(filteredData);
+      const filteredData = filterData(text, allRestaurants);
+      setFilteredRestaurants(filteredData);
       setShowCancelIcon(true);
     } else {
-      setResponseData(originalData);
+      setFilteredRestaurants(allRestaurants);
       setShowCancelIcon(false);
     }
   };
@@ -39,40 +35,11 @@ const Body = () => {
   const handleCancel = () => {
     setSearchText("");
     setShowCancelIcon(false);
-    setResponseData(originalData);
+    setFilteredRestaurants(allRestaurants);
   };
 
-  useEffect(() => {
-    fetchData(); //api call
-  }, []);
 
-  async function fetchData() {
-    try {
-      const response = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.888179812534588&lng=77.59581348084252&offset=1&sortBy=RELEVANCE&pageType=SEE_ALL&page_type=DESKTOP_SEE_ALL_LISTING"
-      );
-      const data = await response.json();
-      async function checkJsonData(jsonData) {
-        for (let i = 0; i < jsonData?.data?.cards.length; i++) {
 
-          
-          let checkData = jsonData?.data?.cards[i]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
-
-          
-          if (checkData !== undefined) {
-            return checkData;
-          }
-        }
-      }
-
-      // call the checkJsonData() function which return Swiggy Restaurant data
-      const resData = await checkJsonData(data);
-      setResponseData(resData);
-      setOriginalData(resData);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }
   async function fetchMoreData() {
     try {
       const payload = {
@@ -115,8 +82,7 @@ const response = await fetch(
   }
 
 
-
-  return responseData === null ? (
+  return allRestaurants === null ? (
     <Shimmer />
   ) : (
     <div className="container">
@@ -131,17 +97,17 @@ const response = await fetch(
           showCancelIcon={showCancelIcon}
         />
       </div>
-      {responseData?.length === 0 ? (
+      {allRestaurants?.length === 0 ? (
         <div className="no-results">No match found for "{searchText}"</div>
       ) : searchText.length === 0 ? (
         <InfiniteScroll
-          dataLength={responseData.length}
+          dataLength={allRestaurants.length}
           next={fetchMoreData}
           hasMore={true}
           loader={<h4>Loading...</h4>}
         >
           <div id="restaurant-list">
-            {responseData?.map((restaurant) => {
+            {allRestaurants?.map((restaurant) => {
               // console.log(restaurant?.info+"here")
               return (
                 <RestaurantCard
@@ -154,7 +120,7 @@ const response = await fetch(
         </InfiniteScroll>
       ) : (
         <div id="restaurant-list">
-          {responseData?.map((restaurant) => {
+          {filteredRestaurants?.map((restaurant) => {
             return (
              <RestaurantCard
                   key={ restaurant?.info?.id}

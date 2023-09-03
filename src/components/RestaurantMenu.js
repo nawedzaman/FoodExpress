@@ -8,76 +8,48 @@ import {
   RESTAURANT_TYPE_KEY,
 } from "../constants";
 import "./RestaurantMenu.css";
-import vegIcon from "../assests/veg-icon.png"
-import nonVegIcon from "../assests/non-veg-icon.png"
-
+import vegIcon from "../assests/veg-icon.png";
+import nonVegIcon from "../assests/non-veg-icon.png";
+import useResMenuData from "../hooks/useResMenuData";
 const RestaurantMenu = () => {
   const { resId } = useParams(); // call useParams and get value of restaurant id using object destructuring
-  const [restaurant, setRestaurant] = useState(null); // call useState to store the api data in res
-  const [menuItems, setMenuItems] = useState([]);
-  useEffect(() => {
-    getRestaurantInfo(); // call getRestaurantInfo function so it fetch api data and set data in restaurant state variable
-  }, []);
-
-  async function getRestaurantInfo() {
-    try {
-      const response = await fetch(swiggy_menu_api_URL + resId);
-      const json = await response.json();
-
-      // Set restaurant data
-      const restaurantData =
-        json?.data?.cards
-          ?.map((x) => x.card)
-          ?.find((x) => x && x.card["@type"] === RESTAURANT_TYPE_KEY)?.card
-          ?.info || null;
-      setRestaurant(restaurantData);
-
-      // Set menu item data
-      const menuItemsData =
-        json?.data?.cards
-          .find((x) => x.groupedCard)
-          ?.groupedCard?.cardGroupMap?.REGULAR?.cards?.map((x) => x.card?.card)
-          ?.filter((x) => x["@type"] == MENU_ITEM_TYPE_KEY)
-          ?.map((x) => x.itemCards)
-          .flat()
-          .map((x) => x.card?.info) || [];
-
-      const uniqueMenuItems = [];
-      menuItemsData.forEach((item) => {
-        if (!uniqueMenuItems.find((x) => x.id === item.id)) {
-          uniqueMenuItems.push(item);
-        }
-      });
-      setMenuItems(uniqueMenuItems);
-    } catch (error) {
-      setMenuItems([]);
-      setRestaurant(null);
-    }
-  }
-  console.log(menuItems);
+  const [restaurant, menuItems] = useResMenuData(
+    swiggy_menu_api_URL,
+    resId,
+    RESTAURANT_TYPE_KEY,
+    MENU_ITEM_TYPE_KEY
+  );
+console.log(restaurant)
   return (
     <>
-      {menuItems.map((item) => {
-        console.log(item)
-        return (
-          <>
-            <div className="restaurant-details">
-            <div className="restaurant-name"> item. </div>
-            </div>
-            <div className="menu-item-container">
-              <div className="menu-item" key={item?.id}>
-                <div className="item-veg"> <img src={item?.isVeg === 1 ? vegIcon : nonVegIcon} alt="SVG" /></div>
-                <div className="item-name">{item?.name}</div>
-                <div className="item-price">₹{item?.price / 100}</div>
-                <div className="item-description">{item?.description}</div>
-              </div>
-              <div className="item-image">
-                <img src={ITEM_IMG_CDN_URL + item?.imageId} alt="" />
-                <button className="add-button">Add +</button>
-              </div>
-            </div>
-          </>
+      <div className="restaurant-info">
+        <div className="restaurant-name">{restaurant?.name}</div>
+        <div className="restaurant-img"><img
+        src={
+          "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/" +
+          restaurant?.cloudinaryImageId
+        }
+        alt=""
+      /></div>
+      </div>
 
+      {menuItems.map((item) => {
+        return (
+          <div className="menu-item-container">
+            <div className="menu-item" key={item?.id}>
+              <div className="item-veg">
+                {" "}
+                <img src={item?.isVeg === 1 ? vegIcon : nonVegIcon} alt="SVG" />
+              </div>
+              <div className="item-name">{item?.name}</div>
+              <div className="item-price">₹{item?.price / 100}</div>
+              <div className="item-description">{item?.description}</div>
+            </div>
+            <div className="item-image">
+              <img src={ITEM_IMG_CDN_URL + item?.imageId} alt="" />
+              <button className="add-button">Add +</button>
+            </div>
+          </div>
         );
       })}
     </>
