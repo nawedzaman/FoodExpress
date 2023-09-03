@@ -1,0 +1,231 @@
+
+  [{
+    "type": "restaurant",
+    "data": {
+      "type": "F",
+      "id": "684315",
+      "name": "Magnolia Bakery",
+      "uuid": "317ee0c0-4cd8-4f07-a71c-83890f16c254",
+      "city": "1",
+      "area": "Kanakapura Road",
+      "totalRatingsString": "500+ ratings",
+      "cloudinaryImageId": "ad7fd11d3c47bb5328721e776375857f",
+      "cuisines": [
+        "Bakery",
+        "Desserts",
+        "Ice Cream"
+      ],
+      "tags": [
+        
+      ],
+      "costForTwo": 40000,
+      "costForTwoString": "₹400 FOR TWO",
+      "deliveryTime": 29,
+      "minDeliveryTime": 29,
+      "maxDeliveryTime": 29,
+      "slaString": "29 MINS",
+      "lastMileTravel": 5.5,
+      "slugs": {
+        "restaurant": "magnolia-bakery-kanakapura-road-kanakapura-road",
+        "city": "bangalore"
+      },
+      "cityState": "1",
+      "address": "Ground Floor, Forum Mall, Prestige Falcon City, Anjanadri Layout, Konanakunte Cross Metro Station, Bengaluru, Karnataka 560062",
+      "locality": "Anjanadri Layout",
+      "parentId": 267303,
+      "unserviceable": false,
+      "veg": false,
+      "select": false,
+      "favorite": false,
+      "tradeCampaignHeaders": [
+        
+      ],
+      "ribbon": [
+        {
+          "type": "PROMOTED"
+        }
+      ],
+      "chain": [
+        
+      ],
+      "feeDetails": {
+        "fees": [
+          {
+            "name": "distance",
+            "fee": 5200,
+            "message": ""
+          },
+          {
+            "name": "time",
+            "fee": 0,
+            "message": ""
+          },
+          {
+            "name": "special",
+            "fee": 0,
+            "message": ""
+          }
+        ],
+        "totalFees": 5200,
+        "message": "",
+        "title": "Delivery Charge",
+        "amount": "5200",
+        "icon": ""
+      },
+      "availability": {
+        "opened": true,
+        "nextOpenMessage": "",
+        "nextCloseMessage": ""
+      },
+      "longDistanceEnabled": 0,
+      "rainMode": "NONE",
+      "thirdPartyAddress": false,
+      "thirdPartyVendor": "",
+      "adTrackingID": "cid=7228705~p=1~eid=00000189-4ee9-f356-03da-02e600bc0100~srvts=1689246102358",
+      "badges": {
+        "imageBased": [
+          
+        ],
+        "textBased": [
+          
+        ],
+        "textExtendedBadges": [
+          
+        ]
+      },
+      "lastMileTravelString": "5.5 kms",
+      "hasSurge": false,
+      "sla": {
+        "restaurantId": "684315",
+        "deliveryTime": 29,
+        "minDeliveryTime": 29,
+        "maxDeliveryTime": 29,
+        "lastMileTravel": 5.5,
+        "lastMileDistance": 0,
+        "serviceability": "SERVICEABLE",
+        "rainMode": "NONE",
+        "longDistance": "NOT_LONG_DISTANCE",
+        "preferentialService": false,
+        "iconType": "EMPTY"
+      },
+      "promoted": true,
+      "avgRating": "4.4",
+      "totalRatings": 500,
+      "new": false
+    },
+    "subtype": "basic"
+  },
+  {
+    "type": "restaurant",
+    "data": {
+      "type": "F",
+      "id": "167101",
+      "name": "Meghana Foods",
+      "uuid": "9bdcbf89-5b7d-497f-abc4-0e6ddc0048fd",
+      "city": "1",
+      "area": "Arakere",
+      "totalRatingsString": "10000+ ratings",
+      "cloudinaryImageId": "cvo1djhbwrgfqd64k0tl",
+      "cuisines": [
+        "Biryani",
+        "Andhra",
+        "South Indian",
+        "North Indian",
+        "Chinese",
+        "Seafood"
+      ],
+      "tags": [
+        
+      ],
+      "costForTwo": 50000,
+      "costForTwoString": "₹500 FOR TWO",
+      "deliveryTime": 12,
+      "minDeliveryTime": 12,
+      "maxDeliveryTime": 12,
+      "slaString": "12 MINS",
+      "lastMileTravel": 0.4000000059604645,
+      "slugs": {
+        "restaurant": "meghana-foods-arekere-arekere",
+        "city": "bangalore"
+      },
+      "cityState": "1",
+      "address": "No. 23/1,Bannerghatta Road, Arekere Village, Begur Hobli, Bangalore",
+      "locality": "Bannergatta Main Road",
+      "parentId": 635,
+      "unserviceable": false,
+      "veg": false,
+      "select": false,
+      "favorite": false,
+      "tradeCampaignHeaders": [
+        
+      ],
+      "chain": [
+        
+      ],
+      "feeDetails": {
+        "fees": [
+          {
+            "name": "distance",
+            "fee": 2700,
+            "message": ""
+          },
+          {
+            "name": "time",
+            "fee": 0,
+            "message": ""
+          },
+          {
+            "name": "special",
+            "fee": 0,
+            "message": ""
+          }
+        ],
+        "totalFees": 2700,
+        "message": "",
+        "title": "Delivery Charge",
+        "amount": "2700",
+        "icon": ""
+      },
+      "availability": {
+        "opened": true,
+        "nextOpenMessage": "",
+        "nextCloseMessage": ""
+      },
+      "longDistanceEnabled": 0,
+      "rainMode": "NONE",
+      "thirdPartyAddress": false,
+      "thirdPartyVendor": "",
+      "adTrackingID": "",
+      "badges": {
+        "imageBased": [
+          
+        ],
+        "textBased": [
+          
+        ],
+        "textExtendedBadges": [
+          
+        ]
+      },
+      "lastMileTravelString": "0.4 kms",
+      "hasSurge": false,
+      "sla": {
+        "restaurantId": "167101",
+        "deliveryTime": 12,
+        "minDeliveryTime": 12,
+        "maxDeliveryTime": 12,
+        "lastMileTravel": 0.4000000059604645,
+        "lastMileDistance": 0,
+        "serviceability": "SERVICEABLE",
+        "rainMode": "NONE",
+        "longDistance": "NOT_LONG_DISTANCE",
+        "preferentialService": false,
+        "iconType": "EMPTY"
+      },
+      "promoted": false,
+      "avgRating": "4.4",
+      "totalRatings": 10000,
+      "new": false
+    },
+    "subtype": "basic"
+  }]

@@ -1,0 +1,26 @@
+.carousel-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .carousel-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 250px;
+    margin: 20px;
+    padding: 10px;
+  }
+  
+  @media (max-width: 768px) {
+    .carousel-content {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .carousel-image {
+      width: 50%;
+      margin: 10px;
+    }
+  }
+  
