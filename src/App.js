@@ -9,15 +9,17 @@ import Cart from "./components/Cart";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import {Provider} from "react-redux"
+import store from "./utils/store";
 
 const Instamart = lazy(() => import("./components/InstaMart"));
 const AppLayout = () => {
   return (
-    <>
+    <Provider store = {store}>
       <Header />
       <Outlet />
       <Footer />
-    </>
+    </Provider>
   );
 };
 const appRouter = createBrowserRouter([

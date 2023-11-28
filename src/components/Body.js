@@ -43,8 +43,8 @@ const Body = () => {
   async function fetchMoreData() {
     try {
       const payload = {
-        lat: "12.888622796441359",
-        lng: "77.60492105036975",
+        lat: "12.1588",
+        lng: "76.7324",
         nextOffset: "COVCELQ4KICAgu6yrYaoGzCnEzgB",
         widgetOffset: {
           NewListingView_Topical_Fullbleed: "",
@@ -101,7 +101,7 @@ const response = await fetch(
         <div className="no-results">No match found for "{searchText}"</div>
       ) : searchText.length === 0 ? (
         <InfiniteScroll
-          dataLength={allRestaurants.length}
+          dataLength={allRestaurants?.length}
           next={fetchMoreData}
           hasMore={true}
           loader={<h4>Loading...</h4>}

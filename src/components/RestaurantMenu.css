@@ -1,64 +1,194 @@
 /* CSS for menu item component */
+.restaurant-info{
+  display: flex;
+  justify-content: space-between; /* Align divs to the left and right edges */
+  align-items: center;
+  padding: 16px;
+  background-color: #fff;
+  max-width: 900px;
+  margin: 0 auto;
+  height: 100%;
+  border-bottom: 1px dashed #d3d3d3;
+  margin-top: 40px;
+}
+.restaurant-rating{
+  border: 0.5px solid #a7a8ac;
+  flex-direction: column;
+  text-align: center;
+  padding: 8px;
+  border-radius: 10px;
+}
+.restaurant-avgRating,.restaurant-starIcon{
+  color: #3d9b6d;
+  font-weight: 700;
+  vertical-align: middle;
+  justify-content: center;
+}
+.restaurant-totalRatingsString{
+  font-size: 11px;
+  color: #8b8d97;
+  font-family: ProximaNovaCondensedRegular,arial,Helvetica Neue,sans-serif;
+  font-weight: 600;
+  text-align: center;
+  border-top: 1px dashed #d3d3d3;
+  padding-top: 5px;
+}
+
+.restaurant-name{
+  font-size: 1.43rem;
+  font-weight: 600;
+  color: #282c3f;
+  margin-bottom: 8px;
+  text-transform: capitalize;
+}
+.restaurant-cuisines, .restaurant-areaName{
+  font-size: .93rem;
+    color: #7e808c;
+    height: calc(0.93rem + 2px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+    white-space: nowrap;
+}
+.RestaurantCost-icon, .RestaurantTime-icon{
+  vertical-align: bottom;
+  margin-right: 10px;
+}
+.restaurant-slaString{
+  color: #3e4152;
+  font-size: 15px;
+  font-weight: 700;
+  margin-right: 10px;
+}
+.restaurant-costForTwoMessage{
+  color: #3e4152;
+  font-size: 15px;
+  font-weight: 700;
+  margin-right: 10px;
+}
+.restaurant-line{
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-start; /* Align divs to the left and right edges */
+  align-items: center;
+  /* border-bottom: 1px solid #ccc; */
+  padding: 16px;
+  margin-bottom: 40px;
+}
 .menu-item-container {
-    position: relative;
-    display: flex;
-    justify-content: space-between; /* Align divs to the left and right edges */
-    align-items: center;
-    padding: 16px;
-    margin-bottom: 16px;
-    background-color: #fff;
-    max-width: 900px;
-    margin: 0 auto;
-    border-bottom: 1px solid #cac8c8;
-  }
-  
-  .item-details {
-    flex: 1;
-    display: flex;
-    flex-direction: column; /* Stacking divs vertically */
-  }
-  
-  .item-name {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
-  
-  .item-price {
-    font-size: 16px;
-    color: #f57224;
-    margin-bottom: 8px;
-  }
-  
-  .item-description{
-    color: #b9b6b6;
-    margin-bottom: 16px;
-    margin-right: 60px;
-    font-size: 14px;
-   }
-  
-  .item-image img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 4px;
-  }
-  .item-veg img{
-    height: 25px;
-    width: 25px;
-  }
-  
- 
-  .add-button {
-    position: absolute;
-    bottom: 10px; /* Adjust the top position to place the button as desired */
-    right: 10px; /* Adjust the right position to place the button as desired */
-    background-color: #f57224;
-    color: #fff;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-    z-index: 1; /* Ensure the button appears above the image */
-  }
+  position: relative;
+  display: flex;
+  justify-content: space-between; /* Align divs to the left and right edges */
+  align-items: center;
+  padding: 16px;
+  background-color: #fff;
+  max-width: 900px;
+  margin: 0 auto;
+  height: 100%;
+  border-bottom: 1px solid #ccc;
+}
+.menu-item {
+  width: 100%;
+}
+.item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column; /* Stacking divs vertically */
+}
+
+.item-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.item-price {
+  font-size: 16px;
+  color: #f57224;
+  margin-bottom: 8px;
+}
+
+.item-description {
+  color: #b9b6b6;
+  margin-bottom: 16px;
+  margin-right: 60px;
+  font-size: 14px;
+}
+
+.item-image img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.item-veg img {
+  height: 25px;
+  width: 25px;
+}
+
+.add-button {
+  position: relative;
+  bottom: 20px;
+  left: 10px;
+  display: flex;
+  background-color: #f57224;
+  color: #fff;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  /* box-shadow: 5px 5px 5px #a3a09e; */
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 1; /* Ensure the button appears above the image */
+  z-index: 1;
+  font-weight: 600;
+  height: 17px;
+  width: 50%;
+}
+
+
+.btn-container {
+  position: relative;
+  bottom: 20px;
+  left: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  color: #f57224;
+  border: 1px solid #f57224;
+  /* box-shadow: 5px 5px 5px #a3a09e; */
+  border-radius: 4px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 8px 16px;
+  z-index: 1;
+  font-weight: 600;
+  height: 15.4px;
+  width: 50%;
+}
+.btn-remove,
+.btn-add,
+.quantity {
+  flex: 1; /* Equal flex distribution for all spans */
+  text-align: center; /* Center the text inside each span */
+}
+
+.btn-remove {
+  color: #a3a09e;
+  font-size: 1.7rem;
+  order: 1; /* Set the order to appear at the far left */
+}
+
+.quantity {
+  order: 2; /* Set the order to appear in the center */
+}
+
+.btn-add {
+  font-size: 1.3rem;
+  order: 3; /* Set the order to appear at the far right */
+}
+

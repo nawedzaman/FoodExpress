@@ -4,6 +4,7 @@ import Search from "./Search";
 import vegIcon from "../assests/veg-icon.png";
 import nonVegIcon from "../assests/non-veg-icon.png";
 import useOnline from "../hooks/useOnline";
+import { useSelector } from "react-redux";
 
 const Title = () => {
   return (
@@ -15,6 +16,7 @@ const Title = () => {
 
 const Header = () => {
   const isOnline = useOnline();
+  const cartItems = useSelector(store=>store.cart.items)
   return (
     <div className="header">
       <Title />
@@ -31,7 +33,7 @@ const Header = () => {
             <Link to="/contact">Contact Us</Link>
           </li>
           <li>
-            <Link to="/cart">Cart</Link>
+            <Link to="/cart">Cart -{cartItems.length}</Link>
           </li>
           <li>
             <Link to="/instamart">Instamart</Link>

@@ -3,12 +3,17 @@
     margin: 0;
     padding: 0;
   }
+body{
+  font-family: ProximaNova,arial,Helvetica Neue,sans-serif;
+  letter-spacing: 0;
+  }
 .header {
     background-color: #fff;
     padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0px -6px 14px 8px #e5e2e2;
   }
   
   .logo {
