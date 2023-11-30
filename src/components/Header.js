@@ -1,8 +1,5 @@
 import logo from "../assests/logo.png";
 import { Link } from "react-router-dom";
-import Search from "./Search";
-import vegIcon from "../assests/veg-icon.png";
-import nonVegIcon from "../assests/non-veg-icon.png";
 import useOnline from "../hooks/useOnline";
 import { useSelector } from "react-redux";
 
@@ -20,7 +17,6 @@ const Header = () => {
   return (
     <div className="header">
       <Title />
-      <Search />
       <div id="nav-items">
         <ul>
           <li>

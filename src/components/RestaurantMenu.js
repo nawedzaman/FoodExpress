@@ -12,35 +12,31 @@ import vegIcon from "../assests/veg-icon.png";
 import nonVegIcon from "../assests/non-veg-icon.png";
 import useResMenuData from "../hooks/useResMenuData";
 import { addItem, removeItem } from "../utils/cartSlice";
-import { useDispatch } from "react-redux";
+import {addRestaurant,removeRestaurant} from "../utils/restaurantSlice";
+import { useDispatch,useSelector } from "react-redux";
 const RestaurantMenu = () => {
   const { resId } = useParams(); // call useParams and get value of restaurant id using object destructuring
+  const dispatch = useDispatch();
+  const cartItems = useSelector((store) => store?.cart?.items);
+
   const [restaurant, menuItems] = useResMenuData(
     swiggy_menu_api_URL,
     resId,
     RESTAURANT_TYPE_KEY,
     MENU_ITEM_TYPE_KEY
   );
-  console.log(restaurant);
-  const [itemQuantity, setItemQuantity] = useState({});
-  const dispatch = useDispatch();
+
+  console.log(cartItems);
+
   const handleAddItem = (item) => {
+    dispatch(addRestaurant(restaurant));
     dispatch(addItem(item));
-    // Update the quantity in the local state
-    setItemQuantity({
-      ...itemQuantity,
-      [item.id]: (itemQuantity[item.id] || 0) + 1,
-    });
-    console.log(itemQuantity);
   };
+
   const handleRemoveItem = (item) => {
     dispatch(removeItem(item));
-    // Update the quantity in the local state
-    setItemQuantity({
-      ...itemQuantity,
-      [item.id]: itemQuantity[item.id] - 1,
-    });
   };
+
   return (
     <>
       <div className="restaurant-info">
@@ -118,11 +114,11 @@ const RestaurantMenu = () => {
       </div>
 
       {menuItems.map((item) => {
-        const isActive =
-          itemQuantity[item.id] !== undefined && itemQuantity[item.id] !== 0;
+        const quantity = cartItems.find((cartItem) => cartItem.id === item.id)?.quantity || 0;
+        const isActive = quantity !== 0;
         return (
-          <div className="menu-item-container">
-            <div className="menu-item" key={item?.id}>
+          <div className="menu-item-container" key={item?.id}>
+            <div className="menu-item" >
               <div className="item-veg">
                 <img src={item?.isVeg === 1 ? vegIcon : nonVegIcon} alt="SVG" />
               </div>
@@ -140,7 +136,7 @@ const RestaurantMenu = () => {
                   >
                     -
                   </span>
-                  <span className="quantity">{itemQuantity[item.id]}</span>
+                  <span className="quantity">{quantity}</span>
                   <span className="btn-add" onClick={() => handleAddItem(item)}>
                     +
                   </span>
