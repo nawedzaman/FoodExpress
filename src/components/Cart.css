@@ -1,0 +1,218 @@
+.empty-cart {
+  height: calc(100vh - 80px);
+  width: 100%;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+  background: #fff;
+}
+.empty-cart-img {
+  width: 271px;
+  height: 256px;
+  background-image: url(https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/2xempty_cart_yfxml0);
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0 auto;
+}
+.empty-cart-text-line-one {
+  margin-top: 24px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #535665;
+}
+.empty-cart-text-line-two {
+  margin-top: 8px;
+  color: #7e808c;
+}
+.return-homepage-button {
+  margin-top: 30px;
+  padding: 11px 20px;
+  text-transform: uppercase;
+  background-color: #fc8019;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  border: 0;
+  outline: 0;
+  font-size: 15px;
+  text-align: center;
+  -ms-transform: translateY(0);
+  transform: translateY(0);
+  transition: transform 0.8s cubic-bezier(0.2, 1, 0.2, 1);
+}
+.return-homepage-button:hover {
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+}
+
+.cart-container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto 25vh;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.cart-name {
+  cursor: pointer;
+  display: flex;
+  margin-right: auto;
+}
+
+.restaurant-name {
+  display: flex;
+  /* align-items: center; */
+}
+
+.restaurant-name-img {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.restaurant-name-title {
+  /* flex: 1; */
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.restaurant-name-area {
+  font-size: 14px;
+  color: #555;
+}
+
+.cart-items {
+  margin-top: 20px;
+  margin-right: auto;
+}
+
+.cart-items-key {
+  margin-bottom: 20px;
+  margin-right: 30px;
+  display: flex;
+}
+
+.cart-suggestions {
+  margin-top: 20px;
+}
+
+.aeGJF {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: none;
+}
+
+.bill-container {
+  margin-top: 20px;
+}
+
+.bill-container h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.bill-container p {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.span-restaurant {
+  display: flex;
+}
+.cart-btn-container {
+  color: #60b246;
+  cursor: pointer;
+  z-index: 1;
+  background-color: #fff;
+  border: 1px solid #d4d5d9;
+  justify-content: space-between;
+  align-items: center;
+  height: 15.4px;
+  padding: 4px 8px;
+  display: flex;
+  position: relative;
+  width: 50%;
+  margin: 0px 20px;
+}
+.cart-btn-remove,
+.cart-btn-add,
+.cart-quantity {
+  flex: 1; /* Equal flex distribution for all spans */
+  text-align: center; /* Center the text inside each span */
+  padding: 5px;
+}
+
+.cart-btn-remove {
+  font-size: x-large;
+  color: #a3a09e;
+  order: 1; /* Set the order to appear at the far left */
+}
+
+.cart-quantity {
+  order: 2; /* Set the order to appear in the center */
+}
+
+.cart-btn-add {
+  font-size: 1.3rem;
+  order: 3; /* Set the order to appear at the far right */
+}
+._3iLcN {
+  top: 20px;
+  left: 20px;
+  width: auto;
+  height: 10px;
+  color: #282c3f;
+}
+.cart-item-price{
+  display: "block";
+  width: 50px;
+}
+.cart-item-name{
+  font-size: 14px;
+    font-weight: 400;
+    margin-left: 10px;
+    margin-right: 14px;
+    width: 100%;
+    margin-left: 10px;
+}
+.cart-pay-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-button {
+  order: 1;
+}
+
+.right-button {
+  order: 2;
+}
+
+.pay-button,
+.clear-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #60b246;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

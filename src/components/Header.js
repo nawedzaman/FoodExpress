@@ -14,6 +14,7 @@ const Title = () => {
 const Header = () => {
   const isOnline = useOnline();
   const cartItems = useSelector(store=>store.cart.items)
+  const cartQuantity=cartItems.reduce((total, item) => total + item.quantity, 0);
   return (
     <div className="header">
       <Title />
@@ -29,7 +30,7 @@ const Header = () => {
             <Link to="/contact">Contact Us</Link>
           </li>
           <li>
-            <Link to="/cart">Cart -{cartItems.length}</Link>
+            <Link to="/cart">Cart -{cartQuantity}</Link>
           </li>
           <li>
             <Link to="/instamart">Instamart</Link>
