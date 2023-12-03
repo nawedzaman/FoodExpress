@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   swiggy_menu_api_URL,
@@ -11,13 +10,16 @@ import "./RestaurantMenu.css";
 import vegIcon from "../assests/veg-icon.png";
 import nonVegIcon from "../assests/non-veg-icon.png";
 import useResMenuData from "../hooks/useResMenuData";
-import { addItem, removeItem } from "../utils/cartSlice";
-import {addRestaurant,removeRestaurant} from "../utils/restaurantSlice";
-import { useDispatch,useSelector } from "react-redux";
+import { addItem, removeItem, clearCart } from "../utils/cartSlice";
+import { addRestaurant, removeRestaurant } from "../utils/restaurantSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Shimmer from "./Shimmer";
 const RestaurantMenu = () => {
   const { resId } = useParams(); // call useParams and get value of restaurant id using object destructuring
   const dispatch = useDispatch();
-  const cartItems = useSelector((store) => store?.cart?.items);
+  const cartDetails = useSelector((store) => store?.cart);
+  const cartItems = cartDetails?.items;
 
   const [restaurant, menuItems] = useResMenuData(
     swiggy_menu_api_URL,
@@ -25,8 +27,11 @@ const RestaurantMenu = () => {
     RESTAURANT_TYPE_KEY,
     MENU_ITEM_TYPE_KEY
   );
-
-  console.log(cartItems);
+  const navigate = useNavigate();
+  const routeChange = () => {
+    let path = `/cart`;
+    navigate(path);
+  };
 
   const handleAddItem = (item) => {
     dispatch(addRestaurant(restaurant));
@@ -37,7 +42,9 @@ const RestaurantMenu = () => {
     dispatch(removeItem(item));
   };
 
-  return (
+  return restaurant === null ? (
+    <Shimmer />
+  ) : (
     <>
       <div className="restaurant-info">
         <div className="restaurant-nameBanner">
@@ -114,11 +121,12 @@ const RestaurantMenu = () => {
       </div>
 
       {menuItems.map((item) => {
-        const quantity = cartItems.find((cartItem) => cartItem.id === item.id)?.quantity || 0;
+        const quantity =
+          cartItems.find((cartItem) => cartItem.id === item.id)?.quantity || 0;
         const isActive = quantity !== 0;
         return (
           <div className="menu-item-container" key={item?.id}>
-            <div className="menu-item" >
+            <div className="menu-item">
               <div className="item-veg">
                 <img src={item?.isVeg === 1 ? vegIcon : nonVegIcon} alt="SVG" />
               </div>
@@ -150,6 +158,42 @@ const RestaurantMenu = () => {
           </div>
         );
       })}
+
+      <div
+        className="restaurant-footer"
+        style={{
+          transform: cartDetails?.totalItems > 0
+          ? "translate3d(0, 0, 0)"
+          : "translate3d(0, 100%, 0)",
+        transition: "transform 0.25s ease",
+        }}
+        onClick={routeChange}
+      >
+        <span className="cart-quantity-price">
+          {cartDetails?.totalItems} Items |{" "}
+        </span>
+        <span className="cart-quantity-price"> ₹{cartDetails?.cartValue} </span>
+        <span className="cart-route">
+          <span className="cart-text">View Cart </span>
+          <span className="cart-logo">
+            <svg
+              fill="#000000"
+              width="20px"
+              height="20px"
+              viewBox="0 0 256 256"
+              id="Flat"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M216,36H40A20.02229,20.02229,0,0,0,20,56V200a20.02229,20.02229,0,0,0,20,20H216a20.02229,20.02229,0,0,0,20-20V56A20.02229,20.02229,0,0,0,216,36Zm-4,24V76H44V60ZM44,196V100H212v96Zm136-72a52,52,0,0,1-104,0,12,12,0,0,1,24,0,28,28,0,0,0,56,0,12,12,0,0,1,24,0Z"
+                fill="#ffffff"
+                stroke="#ffffff"
+                stroke-width="4"
+              />
+            </svg>
+          </span>
+        </span>
+      </div>
     </>
   );
 };

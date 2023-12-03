@@ -4,22 +4,17 @@ import { addItem, removeItem, clearCart } from "../utils/cartSlice";
 import "./Cart.css";
 
 const Cart = () => {
-  const cartItems = useSelector((store) => store?.cart?.items);
+  const cartDetails = useSelector((store) => store?.cart);
+  const cartItems = cartDetails?.items
   const restaurant = useSelector((store) => store?.restaurantDetails?.items[0]); //implement logic only one restaurant in cart should be present
   //once added item must remain added
   const navigate = useNavigate();
   console.log(restaurant);
-  console.log(cartItems);
+  console.log(cartDetails);
   const dispatch = useDispatch();
-  const billCalculations = () => {
-    let total = 0;
-    cartItems.map((item) => {
-      total = total + item?.price * item?.quantity;
-    });
-    return total;
-  };
-  const handleClearCart = () => {
-    dispatch(clearCart());
+
+  const handlePay = () => {
+    //handle payment here
   };
   const handleNameClick = () => {
     let path = `/restaurant/${restaurant?.id}`;
@@ -36,6 +31,8 @@ const Cart = () => {
   const handleRemoveItem = (item) => {
     dispatch(removeItem(item));
   };
+  const deliveryCharges = restaurant?.feeDetails?.totalFee / 100;
+  const cartValue = cartDetails?.cartValue+deliveryCharges
   return cartItems.length > 0 ? (
     <>
       <div className="cart-container">
@@ -165,27 +162,28 @@ const Cart = () => {
             <h4>Bill Details</h4>
             <p>
               <span>Item Total</span>
-              <span> ₹{~~(billCalculations() / 100)}</span>
+              <span> ₹{cartDetails?.totalPrice}</span>
             </p>
             <p>
               <span>Delivery Fee|{restaurant?.sla?.lastMileTravelString}</span>
-              <span> ₹{restaurant?.feeDetails?.totalFee / 100}</span>
+              <span> ₹{deliveryCharges}</span>
             </p>
             <p>
               <span>Item Discount</span>
               <span>
-                -₹{~~(billCalculations() / 100 - billCalculations() / 150)}
+                -₹{cartDetails?.totalPrice - cartValue}
               </span>
             </p>
             <p>
               <h4>To Pay</h4>
-              <span>₹{~~(billCalculations() / 150)}</span>
+              <span>₹{cartValue}</span>
             </p>
           </div>
         </div>
         <div className="cart-pay-buttons">
-          <button onClick={() => handleClearCart()} className="pay-button">
-            Proceed to Pay ₹{~~(billCalculations() / 150)}
+          <button onClick={() => handlePay()} className="pay-button">
+            Proceed to Pay ₹{cartValue}
+
           </button>
           {/* <button onClick={() => handleClearCart()} className="clear-button">
             Clear Cart

@@ -99,8 +99,10 @@
 
 .cart-items-key {
   margin-bottom: 20px;
-  margin-right: 30px;
   display: flex;
+}
+.cart-price-container{
+  text-align: end;
 }
 
 .cart-suggestions {
