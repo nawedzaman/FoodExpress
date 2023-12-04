@@ -121,17 +121,72 @@ const RestaurantMenu = () => {
       </div>
 
       {menuItems.map((item) => {
+        console.log(item);
         const quantity =
           cartItems.find((cartItem) => cartItem.id === item.id)?.quantity || 0;
         const isActive = quantity !== 0;
+        const price =
+          item && item?.price
+            ? Math.floor(item?.price / 100)
+            : item && item?.defaultPrice
+            ? Math.floor(item?.defaultPrice / 100)
+            : 0;
         return (
           <div className="menu-item-container" key={item?.id}>
             <div className="menu-item">
               <div className="item-veg">
-                <img src={item?.isVeg === 1 ? vegIcon : nonVegIcon} alt="SVG" />
+                  {item?.isVeg === 1 ? (
+                    <svg
+                      width="15"
+                      height="15"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 15 15"
+                    >
+                      <path
+                        x="10"
+                        y="10"
+                        width="80"
+                        height="80"
+                        stroke="green"
+                        fill="transparent"
+                        stroke-width="0.6"
+                        d="M1.5 1.5H13.5V13.5H1.5V1.5z"
+                      />
+                      <path
+                        cx="50"
+                        cy="50"
+                        r="25"
+                        fill="green"
+                        d="M11.25 7.5A3.75 3.75 0 0 1 7.5 11.25A3.75 3.75 0 0 1 3.75 7.5A3.75 3.75 0 0 1 11.25 7.5z"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width="15"
+                      height="15"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 15 15"
+                    >
+                      <path
+                        x="10"
+                        y="10"
+                        width="70"
+                        height="70"
+                        stroke="red"
+                        fill="transparent"
+                        stroke-width="0.44999999999999996"
+                        d="M1.5 1.5H12V12H1.5V1.5z"
+                      />
+                      <path
+                        points="45,20 70,60 20,60"
+                        fill="red"
+                        d="M6.75 3L10.5 9L3 9Z"
+                      />
+                    </svg>
+                  )}
               </div>
               <div className="item-name">{item?.name}</div>
-              <div className="item-price">₹{item?.price / 100}</div>
+              <div className="item-price">₹{price}</div>
               <div className="item-description">{item?.description}</div>
             </div>
             <div className="item-image">
@@ -162,10 +217,12 @@ const RestaurantMenu = () => {
       <div
         className="restaurant-footer"
         style={{
-          transform: cartDetails?.totalItems > 0
-          ? "translate3d(0, 0, 0)"
-          : "translate3d(0, 100%, 0)",
-        transition: "transform 0.25s ease",
+          transform:
+            cartDetails?.totalItems > 0
+              ? "translate3d(0, 0, 0)"
+              : "translate3d(0, 100%, 0)",
+          transition: "transform 0.25s ease",
+          zIndex:cartDetails?.totalItems>0?"1":"-3"
         }}
         onClick={routeChange}
       >

@@ -5,7 +5,7 @@ import "./Cart.css";
 
 const Cart = () => {
   const cartDetails = useSelector((store) => store?.cart);
-  const cartItems = cartDetails?.items
+  const cartItems = cartDetails?.items;
   const restaurant = useSelector((store) => store?.restaurantDetails?.items[0]); //implement logic only one restaurant in cart should be present
   //once added item must remain added
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const Cart = () => {
     dispatch(removeItem(item));
   };
   const deliveryCharges = restaurant?.feeDetails?.totalFee / 100;
-  const cartValue = cartDetails?.cartValue+deliveryCharges
+  const cartValue = cartDetails?.cartValue + deliveryCharges;
   return cartItems.length > 0 ? (
     <>
       <div className="cart-container">
@@ -60,6 +60,7 @@ const Cart = () => {
         </div>
         <div className="cart-items">
           {cartItems.map((item) => {
+            const price = item?.price ? item?.price : item?.defaultPrice;
             return (
               <div className="cart-items-key" key={item?.id}>
                 <div className="veg-nonveg">
@@ -138,12 +139,10 @@ const Cart = () => {
                       display: "block",
                     }}
                   >
-                    ₹{~~((item?.price / 100)*item?.quantity)}
+                    ₹{~~((price / 100) * item?.quantity)}
                   </div>
-                  <div
-                    className="cart-item-price"
-                  >
-                    ₹{~~((item?.price / 150)*item?.quantity)}
+                  <div className="cart-item-price">
+                    ₹{~~((price / 150) * item?.quantity)}
                   </div>
                 </div>
               </div>
@@ -170,9 +169,7 @@ const Cart = () => {
             </p>
             <p>
               <span>Item Discount</span>
-              <span>
-                -₹{cartDetails?.totalPrice - cartValue}
-              </span>
+              <span>-₹{cartDetails?.totalPrice - cartValue}</span>
             </p>
             <p>
               <h4>To Pay</h4>
@@ -183,7 +180,6 @@ const Cart = () => {
         <div className="cart-pay-buttons">
           <button onClick={() => handlePay()} className="pay-button">
             Proceed to Pay ₹{cartValue}
-
           </button>
           {/* <button onClick={() => handleClearCart()} className="clear-button">
             Clear Cart

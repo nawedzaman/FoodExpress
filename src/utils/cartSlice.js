@@ -24,10 +24,10 @@ const cartSlice = createSlice({
         0
       );
       state.totalPrice = Math.floor(
-        state.items.reduce(
-          (total, item) => total + item.price * item.quantity,
-          0
-        ) / 100
+        state.items.reduce((total, item) => {
+          const itemPrice = item.price || item.defaultPrice || 0;
+          return total + itemPrice * item.quantity;
+        }, 0) / 100
       );
       state.cartValue = Math.floor(state.totalPrice / 1.5);
     },
@@ -48,10 +48,10 @@ const cartSlice = createSlice({
         0
       );
       state.totalPrice = Math.floor(
-        state.items.reduce(
-          (total, item) => total + item.price * item.quantity,
-          0
-        ) / 100
+        state.items.reduce((total, item) => {
+          const itemPrice = item.price || item.defaultPrice || 0;
+          return total + itemPrice * item.quantity;
+        }, 0) / 100
       );
       state.cartValue = Math.floor(state.totalPrice / 1.5);
     },
