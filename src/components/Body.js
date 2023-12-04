@@ -37,51 +37,6 @@ const Body = () => {
     setShowCancelIcon(false);
     setFilteredRestaurants(allRestaurants);
   };
-
-
-
-//   async function fetchMoreData() {
-//     try {
-//       const payload = {
-//         lat: "12.1588",
-//         lng: "76.7324",
-//         nextOffset: "COVCELQ4KICAgu6yrYaoGzCnEzgB",
-//         widgetOffset: {
-//           NewListingView_Topical_Fullbleed: "",
-//           NewListingView_category_bar_chicletranking_TwoRows: "",
-//           NewListingView_category_bar_chicletranking_TwoRows_Rendition: "",
-//           Restaurant_Group_WebView_PB_Theme: "",
-//           Restaurant_Group_WebView_SEO_PB_Theme: "",
-//           collectionV5RestaurantListWidget_SimRestoRelevance_food_seo: "40",
-//           inlineFacetFilter: "",
-//           restaurantCountWidget: ""
-//         },
-//         filters: {},
-//         seoParams: {
-//           seoUrl: "https://www.swiggy.com/",
-//           pageType: "FOOD_HOMEPAGE",
-//           apiName: "FoodHomePage"
-//         },
-//         page_type: "DESKTOP_WEB_LISTING",
-//         _csrf: "e9UvJAKbj0Sm-McrozZpL-Yl28MuNTm9m22yCydo"
-//       };
-// const response = await fetch(
-//         "https://www.swiggy.com/dapi/restaurants/list/update",
-//         {
-//           method: "POST",
-//           body: JSON.stringify(payload)
-//         }
-//       );
-  
-//       const data = await response.json();
-//       console.log(JSON.stringify(data));
-//       // Process the response data as needed
-//     } catch (error) {
-//       console.error("Error fetching data:", error);
-//     }
-//   }
-
-
   return allRestaurants === null ? (
     <Shimmer />
   ) : (
@@ -100,15 +55,9 @@ const Body = () => {
       {allRestaurants?.length === 0 ? (
         <div className="no-results">No match found for "{searchText}"</div>
       ) : searchText.length === 0 ? (
-        // <InfiniteScroll
-        //   dataLength={allRestaurants?.length}
-        //   next={fetchMoreData}
-        //   hasMore={true}
-        //   loader={<h4>Loading...</h4>}
-        // >
+
           <div id="restaurant-list">
             {allRestaurants?.map((restaurant) => {
-              // console.log(restaurant?.info+"here")
               return (
                 <RestaurantCard
                   key={ restaurant?.info?.id}
@@ -117,7 +66,6 @@ const Body = () => {
               );
             })}
           </div>
-        // </InfiniteScroll>
       ) : (
         <div id="restaurant-list">
           {filteredRestaurants?.map((restaurant) => {

@@ -11,7 +11,7 @@ const restaurantSlice = createSlice({
         },
        
         removeRestaurant:(state)=>{
-            state.items.pop()
+            state.items = [];
         }
     },
 });

@@ -9,8 +9,6 @@ const Cart = () => {
   const restaurant = useSelector((store) => store?.restaurantDetails?.items[0]); //implement logic only one restaurant in cart should be present
   //once added item must remain added
   const navigate = useNavigate();
-  console.log(restaurant);
-  console.log(cartDetails);
   const dispatch = useDispatch();
 
   const handlePay = () => {

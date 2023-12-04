@@ -7,20 +7,23 @@ import {
   RESTAURANT_TYPE_KEY,
 } from "../constants";
 import "./RestaurantMenu.css";
-import vegIcon from "../assests/veg-icon.png";
-import nonVegIcon from "../assests/non-veg-icon.png";
 import useResMenuData from "../hooks/useResMenuData";
 import { addItem, removeItem, clearCart } from "../utils/cartSlice";
 import { addRestaurant, removeRestaurant } from "../utils/restaurantSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Shimmer from "./Shimmer";
+import { useState } from "react";
 const RestaurantMenu = () => {
   const { resId } = useParams(); // call useParams and get value of restaurant id using object destructuring
   const dispatch = useDispatch();
   const cartDetails = useSelector((store) => store?.cart);
   const cartItems = cartDetails?.items;
-
+  const restaurantStore = useSelector(
+    (store) => store?.restaurantDetails?.items[0]
+  );
+  const [showPopup, setShowPopup] = useState(false);
+  const [currentItem, setCurrentItem] = useState(null);
   const [restaurant, menuItems] = useResMenuData(
     swiggy_menu_api_URL,
     resId,
@@ -32,10 +35,31 @@ const RestaurantMenu = () => {
     let path = `/cart`;
     navigate(path);
   };
+  const handlePopup = (value) => {
+    if (value) {
+      dispatch(removeRestaurant());
+      dispatch(clearCart());
+
+      if (currentItem) {
+        // If currentItem is available, add the restaurant and item
+        dispatch(addRestaurant(restaurant));
+        dispatch(addItem(currentItem));
+      }
+    }
+
+    // Reset currentItem and hide the popup
+    setCurrentItem(null);
+    setShowPopup(false);
+  };
 
   const handleAddItem = (item) => {
-    dispatch(addRestaurant(restaurant));
-    dispatch(addItem(item));
+    setCurrentItem(item);
+    if (restaurantStore && restaurantStore?.id !== restaurant?.id) {
+      setShowPopup(true);
+    } else {
+      dispatch(addRestaurant(restaurant));
+      dispatch(addItem(item));
+    }
   };
 
   const handleRemoveItem = (item) => {
@@ -121,7 +145,6 @@ const RestaurantMenu = () => {
       </div>
 
       {menuItems.map((item) => {
-        console.log(item);
         const quantity =
           cartItems.find((cartItem) => cartItem.id === item.id)?.quantity || 0;
         const isActive = quantity !== 0;
@@ -135,55 +158,55 @@ const RestaurantMenu = () => {
           <div className="menu-item-container" key={item?.id}>
             <div className="menu-item">
               <div className="item-veg">
-                  {item?.isVeg === 1 ? (
-                    <svg
-                      width="15"
-                      height="15"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 15 15"
-                    >
-                      <path
-                        x="10"
-                        y="10"
-                        width="80"
-                        height="80"
-                        stroke="green"
-                        fill="transparent"
-                        stroke-width="0.6"
-                        d="M1.5 1.5H13.5V13.5H1.5V1.5z"
-                      />
-                      <path
-                        cx="50"
-                        cy="50"
-                        r="25"
-                        fill="green"
-                        d="M11.25 7.5A3.75 3.75 0 0 1 7.5 11.25A3.75 3.75 0 0 1 3.75 7.5A3.75 3.75 0 0 1 11.25 7.5z"
-                      />
-                    </svg>
-                  ) : (
-                    <svg
-                      width="15"
-                      height="15"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 15 15"
-                    >
-                      <path
-                        x="10"
-                        y="10"
-                        width="70"
-                        height="70"
-                        stroke="red"
-                        fill="transparent"
-                        stroke-width="0.44999999999999996"
-                        d="M1.5 1.5H12V12H1.5V1.5z"
-                      />
-                      <path
-                        points="45,20 70,60 20,60"
-                        fill="red"
-                        d="M6.75 3L10.5 9L3 9Z"
-                      />
-                    </svg>
-                  )}
+                {item?.isVeg === 1 ? (
+                  <svg
+                    width="15"
+                    height="15"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 15 15"
+                  >
+                    <path
+                      x="10"
+                      y="10"
+                      width="80"
+                      height="80"
+                      stroke="green"
+                      fill="transparent"
+                      stroke-width="0.6"
+                      d="M1.5 1.5H13.5V13.5H1.5V1.5z"
+                    />
+                    <path
+                      cx="50"
+                      cy="50"
+                      r="25"
+                      fill="green"
+                      d="M11.25 7.5A3.75 3.75 0 0 1 7.5 11.25A3.75 3.75 0 0 1 3.75 7.5A3.75 3.75 0 0 1 11.25 7.5z"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width="15"
+                    height="15"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 15 15"
+                  >
+                    <path
+                      x="10"
+                      y="10"
+                      width="70"
+                      height="70"
+                      stroke="red"
+                      fill="transparent"
+                      stroke-width="0.44999999999999996"
+                      d="M1.5 1.5H12V12H1.5V1.5z"
+                    />
+                    <path
+                      points="45,20 70,60 20,60"
+                      fill="red"
+                      d="M6.75 3L10.5 9L3 9Z"
+                    />
+                  </svg>
+                )}
               </div>
               <div className="item-name">{item?.name}</div>
               <div className="item-price">₹{price}</div>
@@ -213,7 +236,23 @@ const RestaurantMenu = () => {
           </div>
         );
       })}
-
+      <div className={`cart-exist-popup ${showPopup ? "show" : ""}`}>
+        <div className="popup-header">
+          {" "}
+          <h4>Items already in cart</h4>
+        </div>
+        <div className="popup-text">
+          <p>
+            Your cart contains items from other restaurant. Would you like to
+            reset your cart for adding items from this restaurant?
+          </p>
+        </div>
+        <div className="popup-button">
+          {" "}
+          <button className="popup-button-false" onClick={() => handlePopup(false)}>NO</button>
+          <button className="popup-button-true" onClick={() => handlePopup(true)}>Yes,Start Afresh</button>
+        </div>
+      </div>
       <div
         className="restaurant-footer"
         style={{
@@ -222,7 +261,7 @@ const RestaurantMenu = () => {
               ? "translate3d(0, 0, 0)"
               : "translate3d(0, 100%, 0)",
           transition: "transform 0.25s ease",
-          zIndex:cartDetails?.totalItems>0?"1":"-3"
+          zIndex: cartDetails?.totalItems > 0 ? "1" : "-3",
         }}
         onClick={routeChange}
       >

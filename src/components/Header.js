@@ -1,13 +1,16 @@
 import logo from "../assests/logo.png";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import useOnline from "../hooks/useOnline";
 import CartLogo from "./CartLogo";
 
 const Title = () => {
+  const navigate = useNavigate();
+  const routeChange = () => {
+    let path = `/`;
+    navigate(path);
+  };
   return (
-    <a href="/">
-      <img className="logo" src={logo} alt="FoodVilla Logo" />
-    </a>
+      <img className="logo" src={logo} alt="FoodVilla Logo" onClick={routeChange} />
   );
 };
 
